@@ -4,23 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <title>Document</title>
+    <title>Draw</title>
   </head>
   <body>
-    <div id="box-container"></div>
-    <div>
+    <div id="box-container" class="box-container"></div>
+    <div class="draw-buttons">
       <button id="btn-reset">Reset</button>
       <button id="btn-save">Save</button>
       <button id="btn-load">Load</button>
       <button id="btn-getPixels">GetPixels</button>
-      <p class="text">*hold shift to erase</p>
       <h1 id="toast"></h1>
     </div>
-    <div>
+    <div class="textarea">
       <textarea id="pixelBar" class="pixelBar"></textarea>
     </div>
-    <button id="btn-drawPixels">DrawPixels</button>
-    <button id="btn-clearText">Clear</button>
+    <div class="textarea-buttons">
+      <button id="btn-drawPixels">DrawPixels</button>
+      <button id="btn-clearText">Clear</button>
+    </div>
+    <div class="instructions">
+      <h3 class="text">Instructions</h3>
+      <ul class="'text">
+        <li>Mouseover to draw</li>
+        <li>Hold shift to erase</li>
+        <li>Save - saves current design to web cache</li>
+        <li>Load - loads in design from web cache</li>
+        <li>GetPixels - returns pixel numbers for current design</li>
+        <li>DrawPixels - draws pixel numbers from the textbox</li>
+        <li>Try 'steve' or 'phil' in the textbox for a surprise</li>
+      </ul>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script type="module" src="scripts.js"></script>
   </body>

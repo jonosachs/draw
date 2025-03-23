@@ -1,10 +1,11 @@
-import { nike } from "./paintings.js";
+import { nike, apple } from "./paintings.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const boxContainer = document.getElementById("box-container");
   const numBoxes = 920;
   let shiftKey = false;
 
+  // Listen for shift key press
   document.addEventListener("keydown", (event) => {
     if (event.key === "Shift") {
       shiftKey = true;
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   });
 
+  // Populate pixel grid
   for (let i = 1; i <= numBoxes; i++) {
     const box = document.createElement("div");
     box.id = `myBox${i}`;
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     boxContainer.appendChild(box);
   }
 
+  // Assign button actions
   const buttons = {
     "btn-reset": reset,
     "btn-save": save,
@@ -41,6 +44,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById(btn).addEventListener("click", action);
   });
 
+  // Clear drawing board
   function reset() {
     const allBoxes = document.querySelectorAll(".box");
 
@@ -49,6 +53,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
   }
 
+  // Save drawing to web storage
   function save() {
     localStorage.clear();
 
@@ -60,6 +65,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     localStorage ? showToast("Saved") : showToast("Save Failed");
   }
 
+  // Load drawing from web storage
   function load() {
     for (let i = 1; i <= numBoxes; i++) {
       const currentBox = document.getElementById(`myBox${i}`);
@@ -78,23 +84,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   }
 
+  // Draw pixels from text box
+  //TODO: fix validation: 'done' on bad text input
   function drawPixels() {
     let textBox = document.getElementById("pixelBar").value;
 
     if (!textBox) {
       showToast("Empty");
       return;
-    }
-
-    if (textBox == "nike") {
-      console.log("nike");
+    } else if (textBox.toLowerCase() == "phil") {
       textBox = nike;
+    } else if (textBox.toLowerCase() == "steve") {
+      textBox = apple;
     } else {
       textBox = textBox.split(",");
       textBox = textBox.map((value) => value.replace(/\s/g, ""));
+
       textBox.forEach((value) => {
         if (isNaN(value)) {
-          showToast("Not a number");
+          showToast("Invalid");
           return;
         }
         setPixelBar(textBox);
@@ -109,8 +117,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         currentBox.classList.remove("blue-bg");
       }
     }
+
+    // showToast("Done");
   }
 
+  // Get pixel numbers from current design and pass to text box
   function getPixels() {
     var pixels = [];
     for (let i = 1; i <= numBoxes; i++) {
@@ -127,11 +138,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   }
 
+  // Set text box text
   function setPixelBar(text) {
     const pixelBar = document.getElementById("pixelBar");
     pixelBar.value = text;
   }
 
+  // Show alerts
   function showToast(msg) {
     const toast = document.getElementById("toast");
     toast.textContent = msg;
@@ -141,6 +154,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }, 500);
   }
 
+  // Clear the text box
   function clearText() {
     setPixelBar("");
   }
